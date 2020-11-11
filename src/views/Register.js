@@ -15,7 +15,7 @@ const schemaValidation = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
-const Login = () => {
+const Register = () => {
   function handleSubmit(data) {
     console.log(data);
   }
@@ -30,9 +30,10 @@ const Login = () => {
             style={styles.linearGradient}>
             <Image source={require('../assets/images/logo.png')} />
             <Form
-              initialValues={{email: '', password: ''}}
+              initialValues={{email: '', password: '', name: ''}}
               onSubmit={handleSubmit}
               validationSchema={schemaValidation}>
+              <InputForm name="name" placeholder="Nome completo" />
               <InputForm name="email" placeholder="Seu e-mail" />
               <InputForm
                 autoCapitalize="none"
@@ -41,9 +42,9 @@ const Login = () => {
                 textContentType="password"
                 secureTextEntry
               />
-              <ButtonSubmit title="Entrar" />
+              <ButtonSubmit title="Criar conta" />
               <ClickableText
-                text="Criar conta gratuita"
+                text="Já tenho conta"
                 onPress={() => console.log('indo pro cadastro')}
               />
             </Form>
@@ -69,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;
