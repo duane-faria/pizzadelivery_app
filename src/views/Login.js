@@ -16,7 +16,7 @@ const schemaValidation = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
-const Login = () => {
+const Login = ({navigation}) => {
   function handleSubmit(data) {
     console.log(data);
   }
@@ -39,7 +39,7 @@ const Login = () => {
             <ButtonSubmit title="Entrar" />
             <ClickableText
               text="Criar conta gratuita"
-              onPress={() => console.log('indo pro cadastro')}
+              onPress={() => navigation.navigate('Register')}
             />
           </Form>
         </PizzaBackground>
