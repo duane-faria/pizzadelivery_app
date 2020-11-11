@@ -7,6 +7,7 @@ import ButtonSubmit from '../components/form/ButtonSubmit';
 import Form from '../components/form/Form';
 import InputForm from '../components/form/InputForm';
 import ClickableText from '../components/ClickableText';
+import PizzaBackground from '../components/PizzaBackground';
 
 const schemaValidation = Yup.object().shape({
   email: Yup.string()
@@ -22,33 +23,26 @@ const Login = () => {
   return (
     <>
       <SafeAreaView>
-        <ImageBackground
-          style={styles.image}
-          source={require('../assets/images/fundo.jpg')}>
-          <LinearGradient
-            colors={['rgba(0, 0, 0, 0.1)', 'rgba(0, 0, 0, 1)']}
-            style={styles.linearGradient}>
-            <Image source={require('../assets/images/logo.png')} />
-            <Form
-              initialValues={{email: '', password: ''}}
-              onSubmit={handleSubmit}
-              validationSchema={schemaValidation}>
-              <InputForm name="email" placeholder="Seu e-mail" />
-              <InputForm
-                autoCapitalize="none"
-                name="password"
-                placeholder="Senha secreta"
-                textContentType="password"
-                secureTextEntry
-              />
-              <ButtonSubmit title="Entrar" />
-              <ClickableText
-                text="Criar conta gratuita"
-                onPress={() => console.log('indo pro cadastro')}
-              />
-            </Form>
-          </LinearGradient>
-        </ImageBackground>
+        <PizzaBackground>
+          <Form
+            initialValues={{email: '', password: ''}}
+            onSubmit={handleSubmit}
+            validationSchema={schemaValidation}>
+            <InputForm name="email" placeholder="Seu e-mail" />
+            <InputForm
+              autoCapitalize="none"
+              name="password"
+              placeholder="Senha secreta"
+              textContentType="password"
+              secureTextEntry
+            />
+            <ButtonSubmit title="Entrar" />
+            <ClickableText
+              text="Criar conta gratuita"
+              onPress={() => console.log('indo pro cadastro')}
+            />
+          </Form>
+        </PizzaBackground>
       </SafeAreaView>
     </>
   );
