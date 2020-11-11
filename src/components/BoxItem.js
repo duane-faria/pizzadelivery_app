@@ -9,7 +9,9 @@ export default function BoxItem({image, title, subTitle, style}) {
       <View style={styles.imageContainer}>
         <Image source={image} />
       </View>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, !subTitle ? {marginTop: 20} : {}]}>
+        {title}
+      </Text>
       {subTitle != false && <Text style={styles.subTitle}>{subTitle}</Text>}
     </View>
   );
