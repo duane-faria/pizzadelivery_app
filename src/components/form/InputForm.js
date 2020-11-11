@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {useFormikContext} from 'formik';
 
 import Input from '../Input';
+import colors from '../../styles/colors';
 
 export default function InputForm({style, name, ...props}) {
   const {
@@ -14,13 +15,18 @@ export default function InputForm({style, name, ...props}) {
   } = useFormikContext();
 
   return (
-    <Input
-      onChageText={(text) => setFieldValue(text)}
-      onBlur={() => setFieldTouched(name)}
-      style={[styles.container, style]}
-      value={values[name]}
-      {...props}
-    />
+    <>
+      <Input
+        onChangeText={(text) => setFieldValue(name, text)}
+        onBlur={() => setFieldTouched(name)}
+        style={[styles.container, style]}
+        value={values[name]}
+        {...props}
+      />
+      {errors[name] && (
+        <Text style={{color: colors.primary}}>{errors[name]}</Text>
+      )}
+    </>
   );
 }
 
