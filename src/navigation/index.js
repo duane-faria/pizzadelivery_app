@@ -1,15 +1,18 @@
 import React from 'react';
+import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Login from '../views/Login';
 import Register from '../views/Register';
 import Flavor from '../views/Flavor';
 import colors from '../styles/colors';
+import Menu from '../views/Menu';
 
 const Stack = createStackNavigator();
 
 const Navigator = () => (
-  <Stack.Navigator initialRouteName="Flavor">
+  <Stack.Navigator initialRouteName="Menu">
     <Stack.Screen
       name="Login"
       component={Login}
@@ -32,7 +35,47 @@ const Navigator = () => (
         headerTintColor: colors.white,
       }}
     />
+    <Stack.Screen
+      name="Menu"
+      component={Menu}
+      options={{
+        title: 'Pizza Delivery',
+        headerTransparent: true,
+        headerTitleAlign: 'center',
+        headerTintColor: colors.white,
+        headerLeft: () => (
+          <TouchableOpacity
+            style={styles.refresh}
+            onPress={() => Alert.alert('atualizar')}>
+            <Icon name="refresh" size={24} color="#fff" />
+          </TouchableOpacity>
+        ),
+        headerRight: () => (
+          <TouchableOpacity
+            style={styles.shoppingCart}
+            onPress={() => Alert.alert('carinho')}>
+            <Icon name="shopping-outline" size={22} color="#fff" />
+          </TouchableOpacity>
+        ),
+      }}
+    />
   </Stack.Navigator>
 );
+
+const styles = StyleSheet.create({
+  shoppingCart: {
+    marginRight: 25,
+    backgroundColor: colors.primary,
+    borderRadius: 35 / 2,
+    width: 35,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3,
+  },
+  refresh: {
+    marginLeft: 25,
+  },
+});
 
 export default Navigator;

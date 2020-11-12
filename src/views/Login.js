@@ -19,6 +19,7 @@ const schemaValidation = Yup.object().shape({
 const Login = ({navigation}) => {
   function handleSubmit(data) {
     console.log(data);
+    navigation.navigate('Menu');
   }
   return (
     <>
