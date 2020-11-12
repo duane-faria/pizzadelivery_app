@@ -5,7 +5,7 @@ import colors from '../styles/colors';
 export default function ListItem({Image, Text, style}) {
   return (
     <View style={[styles.container, style]}>
-      <Image />
+      {Image && <Image />}
       <Text />
     </View>
   );
@@ -13,7 +13,7 @@ export default function ListItem({Image, Text, style}) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 120,
+    height: 130,
     width: '100%',
     elevation: 10,
     backgroundColor: colors.white,
