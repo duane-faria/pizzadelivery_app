@@ -10,11 +10,12 @@ import colors from '../styles/colors';
 import Menu from '../views/Menu';
 import Orders from '../views/Orders';
 import ShoppingCart from '../views/ShoppingCart';
+import RequestOrder from '../views/RequestOrder';
 
 const Stack = createStackNavigator();
 
 const Navigator = () => (
-  <Stack.Navigator initialRouteName="ShoppingCart">
+  <Stack.Navigator initialRouteName="RequestOrder">
     <Stack.Screen
       name="Login"
       component={Login}
@@ -75,6 +76,15 @@ const Navigator = () => (
       component={ShoppingCart}
       options={{
         title: 'Carrinho',
+        headerTransparent: true,
+        headerTintColor: colors.white,
+      }}
+    />
+    <Stack.Screen
+      name="RequestOrder"
+      component={RequestOrder}
+      options={{
+        title: 'Realizar pedido',
         headerTransparent: true,
         headerTintColor: colors.white,
       }}

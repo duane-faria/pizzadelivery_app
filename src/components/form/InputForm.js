@@ -5,7 +5,7 @@ import {useFormikContext} from 'formik';
 import Input from '../Input';
 import colors from '../../styles/colors';
 
-export default function InputForm({style, name, ...props}) {
+export default function InputForm({container, style, name, ...props}) {
   const {
     setFieldTouched,
     setFieldValue,
@@ -22,6 +22,7 @@ export default function InputForm({style, name, ...props}) {
         style={[styles.container, style]}
         value={values[name]}
         {...props}
+        container={container}
       />
       {errors[name] && (
         <Text style={{color: colors.primary}}>{errors[name]}</Text>

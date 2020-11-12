@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, StyleSheet, TextInput} from 'react-native';
 
-export default function Input({...props}) {
+export default function Input({container, ...props}) {
   return (
-    <View style={styles.container}>
-      <TextInput {...props} />
+    <View style={[styles.container, container]}>
+      <TextInput {...props} placeholderTextColor="#999999" />
     </View>
   );
 }
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 10,
     alignItems: 'center',
-    height: 50,
+    minHeight: 50,
+    fontFamily: 'Roboto',
   },
 });
