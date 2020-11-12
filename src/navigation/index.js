@@ -8,11 +8,13 @@ import Register from '../views/Register';
 import Flavor from '../views/Flavor';
 import colors from '../styles/colors';
 import Menu from '../views/Menu';
+import Orders from '../views/Orders';
+import ShoppingCart from '../views/ShoppingCart';
 
 const Stack = createStackNavigator();
 
 const Navigator = () => (
-  <Stack.Navigator initialRouteName="Menu">
+  <Stack.Navigator initialRouteName="ShoppingCart">
     <Stack.Screen
       name="Login"
       component={Login}
@@ -57,6 +59,24 @@ const Navigator = () => (
             <Icon name="shopping-outline" size={22} color="#fff" />
           </TouchableOpacity>
         ),
+      }}
+    />
+    <Stack.Screen
+      name="Orders"
+      component={Orders}
+      options={{
+        title: 'Meus pedidos',
+        headerTransparent: true,
+        headerTintColor: colors.white,
+      }}
+    />
+    <Stack.Screen
+      name="ShoppingCart"
+      component={ShoppingCart}
+      options={{
+        title: 'Carrinho',
+        headerTransparent: true,
+        headerTintColor: colors.white,
       }}
     />
   </Stack.Navigator>
