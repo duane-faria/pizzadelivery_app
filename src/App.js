@@ -1,17 +1,16 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import store from './store';
 
-import Login from './views/Login';
-import Register from './views/Register';
-import Size from './views/Size';
 import Navigator from './navigation';
-const App = () => {
-  return (
+
+const App = () => (
+  <Provider store={store}>
     <NavigationContainer>
       <Navigator />
     </NavigationContainer>
-  );
-};
+  </Provider>
+);
 
 export default App;

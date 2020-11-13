@@ -11,6 +11,7 @@ import PizzaBackground from '../components/PizzaBackground';
 import Error from '../components/Error';
 import auth from '../api/auth';
 import useApi from '../hooks/useApi';
+import { storeUser } from '../util/authStorage';
 
 const schemaValidation = Yup.object().shape({
   email: Yup.string()
@@ -26,7 +27,10 @@ const Login = ({ navigation }) => {
     Keyboard.dismiss();
     const response = await authApi.request(data.email, data.password);
     console.log(response.data);
-    if (response.ok) navigation.navigate('Menu');
+    if (response.ok) {
+      storeUser(authApi.data);
+      navigation.navigate('Menu');
+    }
   }
   return (
     <>
