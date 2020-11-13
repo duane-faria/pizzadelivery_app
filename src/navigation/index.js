@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -14,8 +14,8 @@ import RequestOrder from '../views/RequestOrder';
 
 const Stack = createStackNavigator();
 
-const Navigator = () => (
-  <Stack.Navigator initialRouteName="Login">
+const Navigator = ({ logged = false }) => (
+  <Stack.Navigator initialRouteName={logged ? 'Menu' : 'Login'}>
     <Stack.Screen
       name="Login"
       component={Login}
@@ -41,7 +41,7 @@ const Navigator = () => (
     <Stack.Screen
       name="Menu"
       component={Menu}
-      options={{
+      options={({ navigation }) => ({
         title: 'Pizza Delivery',
         headerTransparent: true,
         headerTitleAlign: 'center',
@@ -49,18 +49,18 @@ const Navigator = () => (
         headerLeft: () => (
           <TouchableOpacity
             style={styles.refresh}
-            onPress={() => Alert.alert('atualizar')}>
+            onPress={() => navigation.navigate('Orders')}>
             <Icon name="refresh" size={24} color="#fff" />
           </TouchableOpacity>
         ),
         headerRight: () => (
           <TouchableOpacity
             style={styles.shoppingCart}
-            onPress={() => Alert.alert('carinho')}>
+            onPress={() => navigation.navigate('ShoppingCart')}>
             <Icon name="shopping-outline" size={22} color="#fff" />
           </TouchableOpacity>
         ),
-      }}
+      })}
     />
     <Stack.Screen
       name="Orders"

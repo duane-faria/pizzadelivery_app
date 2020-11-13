@@ -24,5 +24,6 @@ module.exports = {
     'global-require': 0,
     'no-use-before-define': 0,
     'no-console': 0,
+    'implicit-arrow-linebreak': 0,
   },
 };

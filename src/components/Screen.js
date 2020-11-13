@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, StyleSheet, SafeAreaView, Image} from 'react-native';
+import { View, StyleSheet, SafeAreaView, Image } from 'react-native';
 import colors from '../styles/colors';
 
-export default function Screen({children, style}) {
+export default function Screen({ children, style }) {
   return (
     <SafeAreaView style={[styles.container, style]}>
       <Image
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   image: {
-    height: 180,
+    height: 120,
     width: '100%',
     position: 'absolute',
   },

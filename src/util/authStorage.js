@@ -12,7 +12,7 @@ export const storeUser = async (user) => {
 
 export const removeUser = async () => {
   try {
-    await AsyncStorage.removeItem(key);
+    await AsyncStorage.setItem(key, null);
   } catch (e) {
     console.log(`Error removing the user ${e}`);
   }
@@ -20,7 +20,8 @@ export const removeUser = async () => {
 
 export const getUser = async () => {
   try {
-    await AsyncStorage.getItem(key);
+    const user = await AsyncStorage.getItem(key);
+    return JSON.parse(user);
   } catch (e) {
     console.log(`Error getting the user ${e}`);
   }
