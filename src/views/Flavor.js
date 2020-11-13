@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import { View, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import BoxItem from '../components/BoxItem';
 
 import Screen from '../components/Screen';
+
 const flavors = [
   {
     title: 'Portuguesa',
@@ -30,17 +31,17 @@ const flavors = [
     image: require('../assets/images/6.png'),
   },
 ];
-export default function Flavor(props) {
+export default function Flavor() {
   return (
     <ScrollView>
       <Screen style={styles.container}>
         <View style={styles.boxContainer}>
-          {flavors.map((flavor, index) => (
+          {flavors.map((flavor) => (
             <BoxItem
               style={styles.boxItem}
               image={flavor.image}
               title={flavor.title}
-              key={index}
+              key={Math.random()}
             />
           ))}
         </View>

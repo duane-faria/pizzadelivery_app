@@ -1,6 +1,6 @@
 import React from 'react';
-import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Login from '../views/Login';
@@ -15,16 +15,16 @@ import RequestOrder from '../views/RequestOrder';
 const Stack = createStackNavigator();
 
 const Navigator = () => (
-  <Stack.Navigator initialRouteName="RequestOrder">
+  <Stack.Navigator initialRouteName="Login">
     <Stack.Screen
       name="Login"
       component={Login}
-      options={{headerShown: false}}
+      options={{ headerShown: false }}
     />
     <Stack.Screen
       name="Register"
       component={Register}
-      options={{headerShown: false}}
+      options={{ headerShown: false }}
     />
     <Stack.Screen
       name="Flavor"

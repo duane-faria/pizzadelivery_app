@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Arrow from 'react-native-vector-icons/MaterialIcons';
 
@@ -11,7 +11,7 @@ function AppImage() {
   return (
     <Image
       source={require('../assets/images/1.png')}
-      style={{height: 90, width: 100}}
+      style={{ height: 90, width: 100 }}
     />
   );
 }
@@ -25,11 +25,11 @@ function AppText() {
         flexShrink: 1,
         alignItems: 'center',
       }}>
-      <View style={{flexDirection: 'column', width: 180}}>
-        <Text style={{color: colors.secondary, fontSize: 16}}>
+      <View style={{ flexDirection: 'column', width: 180 }}>
+        <Text style={{ color: colors.secondary, fontSize: 16 }}>
           Pizza Calabresa
         </Text>
-        <Text style={{color: colors.gray, marginTop: 5}}>Tamanho: Média</Text>
+        <Text style={{ color: colors.gray, marginTop: 5 }}>Tamanho: Média</Text>
         <Text
           style={{
             color: colors.secondary,
@@ -40,12 +40,12 @@ function AppText() {
           R$42, 00
         </Text>
       </View>
-      <TouchableOpacity style={{width: 40}}>
+      <TouchableOpacity style={{ width: 40 }}>
         <Icon
           name="trash-can-outline"
           size={25}
           color={colors.primary}
-          style={{marginRight: 5, marginLeft: -2}}
+          style={{ marginRight: 5, marginLeft: -2 }}
         />
       </TouchableOpacity>
     </View>
@@ -58,9 +58,9 @@ export default function ShoppingCart(props) {
         <ListItem
           Text={AppText}
           Image={AppImage}
-          style={{justifyContent: 'space-between'}}
+          style={{ justifyContent: 'space-between' }}
         />
-        <View style={{width: '100%', marginTop: 25}}>
+        <View style={{ width: '100%', marginTop: 25 }}>
           <TouchableOpacity
             style={{
               backgroundColor: colors.primary,
@@ -84,7 +84,7 @@ export default function ShoppingCart(props) {
               name="keyboard-arrow-right"
               size={25}
               color={colors.white}
-              style={{marginRight: 5, marginLeft: -2}}
+              style={{ marginRight: 5, marginLeft: -2 }}
             />
           </TouchableOpacity>
         </View>

@@ -19,6 +19,5 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignItems: 'center',
     minHeight: 50,
-    fontFamily: 'Roboto',
   },
 });

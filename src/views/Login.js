@@ -1,6 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, ImageBackground, Image} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import { SafeAreaView } from 'react-native';
 import * as Yup from 'yup';
 
 import ButtonSubmit from '../components/form/ButtonSubmit';
@@ -16,7 +15,7 @@ const schemaValidation = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   function handleSubmit(data) {
     console.log(data);
     navigation.navigate('Menu');
@@ -26,16 +25,21 @@ const Login = ({navigation}) => {
       <SafeAreaView>
         <PizzaBackground>
           <Form
-            initialValues={{email: '', password: ''}}
+            initialValues={{ email: '', password: '' }}
             onSubmit={handleSubmit}
             validationSchema={schemaValidation}>
-            <InputForm name="email" placeholder="Seu e-mail" />
+            <InputForm
+              name="email"
+              placeholder="Seu e-mail"
+              style={{ fontFamily: 'Roboto' }}
+            />
             <InputForm
               autoCapitalize="none"
               name="password"
               placeholder="Senha secreta"
               textContentType="password"
               secureTextEntry
+              style={{ fontFamily: 'Roboto' }}
             />
             <ButtonSubmit title="Entrar" />
             <ClickableText
@@ -48,20 +52,5 @@ const Login = ({navigation}) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  image: {
-    height: '100%',
-    width: '100%',
-  },
-  linearGradient: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    height: '100%',
-    width: '100%',
-    paddingHorizontal: 20,
-  },
-});
 
 export default Login;

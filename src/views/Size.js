@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import BoxItem from '../components/BoxItem';
 
 import Screen from '../components/Screen';
+
 const sizes = [
   {
     title: 'Gigante',
@@ -25,17 +26,17 @@ const sizes = [
     image: require('../assets/images/tamanho-p.png'),
   },
 ];
-export default function Size(props) {
+export default function Size() {
   return (
     <Screen style={styles.container}>
       <View style={styles.boxContainer}>
-        {sizes.map((size, index) => (
+        {sizes.map((size) => (
           <BoxItem
             style={styles.boxItem}
             image={size.image}
             title={size.title}
             subTitle={size.subTitle}
-            key={index}
+            key={Math.random()}
           />
         ))}
       </View>

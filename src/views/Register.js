@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import * as Yup from 'yup';
 
 import ButtonSubmit from '../components/form/ButtonSubmit';
@@ -15,7 +15,7 @@ const schemaValidation = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
-const Register = ({navigation}) => {
+const Register = ({ navigation }) => {
   function handleSubmit(data) {
     console.log(data);
   }
@@ -24,7 +24,7 @@ const Register = ({navigation}) => {
       <SafeAreaView>
         <PizzaBackground>
           <Form
-            initialValues={{email: '', password: '', name: ''}}
+            initialValues={{ email: '', password: '', name: '' }}
             onSubmit={handleSubmit}
             validationSchema={schemaValidation}>
             <InputForm name="name" placeholder="Nome completo" />

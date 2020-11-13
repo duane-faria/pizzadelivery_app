@@ -1,14 +1,14 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
 import ListItem from '../components/ListItem';
 import Screen from '../components/Screen';
 import colors from '../styles/colors';
 
 const AppText = () => (
-  <View style={{flexDirection: 'column', paddingHorizontal: 15}}>
-    <Text style={{color: colors.secondary, fontSize: 16}}>Pedido #3</Text>
-    <Text style={{color: colors.gray, marginTop: 5}}>Ontem às 17h</Text>
+  <View style={{ flexDirection: 'column', paddingHorizontal: 15 }}>
+    <Text style={{ color: colors.secondary, fontSize: 16 }}>Pedido #3</Text>
+    <Text style={{ color: colors.gray, marginTop: 5 }}>Ontem às 17h</Text>
     <Text
       style={{
         color: colors.secondary,
@@ -25,7 +25,7 @@ export default function Orders(props) {
   return (
     <Screen style={styles.container}>
       <View style={styles.content}>
-        <ListItem Text={AppText} style={{marginBottom: 15}} />
+        <ListItem Text={AppText} style={{ marginBottom: 15 }} />
         <ListItem Text={AppText} />
       </View>
     </Screen>
