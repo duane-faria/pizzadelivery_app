@@ -23,5 +23,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'global-require': 0,
     'no-use-before-define': 0,
+    'no-console': 0,
   },
 };

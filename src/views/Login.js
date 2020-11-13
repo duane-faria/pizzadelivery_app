@@ -1,12 +1,16 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, Keyboard } from 'react-native';
 import * as Yup from 'yup';
+import PropTypes from 'prop-types';
 
 import ButtonSubmit from '../components/form/ButtonSubmit';
 import Form from '../components/form/Form';
 import InputForm from '../components/form/InputForm';
 import ClickableText from '../components/ClickableText';
 import PizzaBackground from '../components/PizzaBackground';
+import Error from '../components/Error';
+import auth from '../api/auth';
+import useApi from '../hooks/useApi';
 
 const schemaValidation = Yup.object().shape({
   email: Yup.string()
@@ -16,14 +20,19 @@ const schemaValidation = Yup.object().shape({
 });
 
 const Login = ({ navigation }) => {
-  function handleSubmit(data) {
-    console.log(data);
-    navigation.navigate('Menu');
+  const authApi = useApi(auth.login);
+
+  async function handleSubmit(data) {
+    Keyboard.dismiss();
+    const response = await authApi.request(data.email, data.password);
+    console.log(response.data);
+    if (response.ok) navigation.navigate('Menu');
   }
   return (
     <>
       <SafeAreaView>
         <PizzaBackground>
+          {authApi.error && <Error error="Usuário não encontrado" />}
           <Form
             initialValues={{ email: '', password: '' }}
             onSubmit={handleSubmit}
@@ -53,4 +62,9 @@ const Login = ({ navigation }) => {
   );
 };
 
+Login.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 export default Login;
