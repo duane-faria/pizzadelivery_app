@@ -6,7 +6,7 @@ const { Types, Creators } = createActions({
   loadFlavorSuccess: ['data'],
 });
 
-export const AuthTypes = Types;
+export const flavorTypes = Types;
 
 export default Creators;
 
