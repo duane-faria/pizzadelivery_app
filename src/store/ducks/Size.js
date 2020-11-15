@@ -2,11 +2,11 @@ import { createReducer, createActions } from 'reduxsauce';
 // import Immutable from 'seamless-immutable';
 
 const { Types, Creators } = createActions({
-  loadFlavorRequest: null,
-  loadFlavorSuccess: ['data'],
+  loadSizeRequest: null,
+  loadSizeSuccess: ['data'],
 });
 
-export const flavorTypes = Types;
+export const sizeTypes = Types;
 
 export default Creators;
 
@@ -15,5 +15,5 @@ export const INITIAL_STATE = {
 };
 
 export const reducers = createReducer(INITIAL_STATE, {
-  [Types.LOAD_FLAVOR_SUCCESS]: (state, { data }) => ({ data: [...data] }),
+  [Types.LOAD_SIZE_SUCCESS]: (state, { data }) => ({ data: [...data] }),
 });

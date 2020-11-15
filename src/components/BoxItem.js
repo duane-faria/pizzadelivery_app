@@ -1,19 +1,22 @@
 import React from 'react';
-import {View, StyleSheet, Image, Text} from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 import colors from '../styles/colors';
 
-export default function BoxItem({image, title, subTitle, style}) {
+export default function BoxItem({ image, title, subTitle, style, onPress }) {
   return (
-    <View style={[styles.container, style]}>
-      <View style={styles.imageContainer}>
-        <Image source={image} />
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={[styles.container, style]}>
+        <View style={styles.imageContainer}>
+          <Image source={image} />
+        </View>
+        <Text style={[styles.title, !subTitle ? { marginTop: 20 } : {}]}>
+          {title}
+        </Text>
+        {subTitle != false && <Text style={styles.subTitle}>{subTitle}</Text>}
       </View>
-      <Text style={[styles.title, !subTitle ? {marginTop: 20} : {}]}>
-        {title}
-      </Text>
-      {subTitle != false && <Text style={styles.subTitle}>{subTitle}</Text>}
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -43,5 +46,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Helvetica',
   },
-  subTitle: {color: colors.gray, fontSize: 20, fontFamily: 'Helvetica'},
+  subTitle: { color: colors.gray, fontSize: 20, fontFamily: 'Helvetica' },
 });

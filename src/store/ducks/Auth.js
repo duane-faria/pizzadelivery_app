@@ -8,7 +8,7 @@ const { Types, Creators } = createActions({
   logout: null,
 });
 
-export const AuthTypes = Types;
+export const authTypes = Types;
 
 export default Creators;
 
@@ -21,16 +21,13 @@ export const INITIAL_STATE = {
 };
 
 export const reducers = createReducer(INITIAL_STATE, {
-  [Types.LOGIN_SUCCESS]: (state, { data }) => {
-    console.log(data);
-    return {
-      token: data.token,
-      id: data.user.id,
-      name: data.user.name,
-      email: data.user.email,
-      error: false,
-    };
-  },
+  [Types.LOGIN_SUCCESS]: (state, { data }) => ({
+    token: data.token,
+    id: data.user.id,
+    name: data.user.name,
+    email: data.user.email,
+    error: false,
+  }),
   // [Types.LOGOUT]: (state) => ({}),
   [Types.LOGIN_FAILURE]: (state) => ({ ...state, error: true }),
 });

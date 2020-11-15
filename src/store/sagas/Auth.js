@@ -9,9 +9,7 @@ export function* sagaLogin(action) {
   console.log(action);
   const { credentials } = action;
   try {
-    console.log(credentials, 'credentials');
     const response = yield call(client.post, 'session', credentials);
-    console.log(response, 'teste');
     yield put(authActions.loginSuccess(response.data));
     authStorage.storeUser(response.data);
     navigate('Menu');

@@ -11,6 +11,7 @@ import Menu from '../views/Menu';
 import Orders from '../views/Orders';
 import ShoppingCart from '../views/ShoppingCart';
 import RequestOrder from '../views/RequestOrder';
+import Size from '../views/Size';
 
 const Stack = createStackNavigator();
 
@@ -85,6 +86,15 @@ const Navigator = ({ logged = false }) => (
       component={RequestOrder}
       options={{
         title: 'Realizar pedido',
+        headerTransparent: true,
+        headerTintColor: colors.white,
+      }}
+    />
+    <Stack.Screen
+      name="Size"
+      component={Size}
+      options={{
+        title: 'Tamanho',
         headerTransparent: true,
         headerTintColor: colors.white,
       }}

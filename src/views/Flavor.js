@@ -2,38 +2,21 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import BoxItem from '../components/BoxItem';
 import Screen from '../components/Screen';
 import flavorActions from '../store/ducks/Flavor';
 
-// const flavors = [
-//   {
-//     title: 'Portuguesa',
-//     image: require('../assets/images/1.png'),
-//   },
-//   {
-//     title: 'Portuguesa',
-//     image: require('../assets/images/2.png'),
-//   },
-//   {
-//     title: 'Portuguesa',
-//     image: require('../assets/images/3.png'),
-//   },
-//   {
-//     title: 'Portuguesa',
-//     image: require('../assets/images/4.png'),
-//   },
-//   {
-//     title: 'Portuguesa',
-//     image: require('../assets/images/5.png'),
-//   },
-//   {
-//     title: 'Portuguesa',
-//     image: require('../assets/images/6.png'),
-//   },
-// ];
-const Flavor = ({ dispatch, Flavor }) => {
+const images = {
+  portuguesa: require('../assets/images/portuguesa.png'),
+  pepperoni: require('../assets/images/pepperoni.png'),
+  atum: require('../assets/images/atum.png'),
+  brocolis: require('../assets/images/brocolis.png'),
+  queijo: require('../assets/images/queijo.png'),
+  calabresa: require('../assets/images/calabresa.png'),
+};
+const FlavorComponent = ({ dispatch, Flavor, navigation }) => {
   React.useEffect(() => {
     dispatch(flavorActions.loadFlavorRequest());
   }, []);
@@ -45,9 +28,12 @@ const Flavor = ({ dispatch, Flavor }) => {
             Flavor.data.map((flavor) => (
               <BoxItem
                 style={styles.boxItem}
-                image={flavor.image}
-                title={flavor.title}
-                key={Math.random()}
+                image={images[flavor.name.toLowerCase()]}
+                title={flavor.name}
+                key={flavor._id}
+                onPress={() =>
+                  navigation.navigate('Size', { flavorId: flavor._id })
+                }
               />
             ))}
         </View>
@@ -60,7 +46,14 @@ const mapStateToProps = (state) => ({
   Flavor: state.Flavor,
 });
 
-export default connect(mapStateToProps)(Flavor);
+FlavorComponent.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  // Flavor: PropTypes.shape({
+  //   data: PropTypes.arrayOf({}).isRequired,
+  // }),
+};
+
+export default connect(mapStateToProps)(FlavorComponent);
 
 const styles = StyleSheet.create({
   container: {},

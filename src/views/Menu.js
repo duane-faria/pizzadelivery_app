@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Screen from '../components/Screen';
 import ListItem from '../components/ListItem';
 import colors from '../styles/colors';
-import { removeUser, getUser } from '../util/authStorage';
+import { getUser } from '../util/authStorage';
 
 function AppImage() {
   return (
@@ -37,26 +37,19 @@ function AppText() {
     </View>
   );
 }
-// removeUser();
-const Menu = ({ navigation }) => {
-  React.useEffect(() => {
-    removeUser();
-    console.log(getUser());
-  }, []);
-  return (
-    <Screen style={styles.container}>
-      <View style={styles.content}>
-        <ListItem
-          Image={AppImage}
-          Text={AppText}
-          style={{ marginBottom: 15 }}
-          onPress={() => navigation.navigate('Flavor')}
-        />
-        <ListItem Image={AppImage} Text={AppText} />
-      </View>
-    </Screen>
-  );
-};
+const Menu = ({ navigation }) => (
+  <Screen style={styles.container}>
+    <View style={styles.content}>
+      <ListItem
+        Image={AppImage}
+        Text={AppText}
+        style={{ marginBottom: 15 }}
+        onPress={() => navigation.navigate('Flavor')}
+      />
+      <ListItem Image={AppImage} Text={AppText} />
+    </View>
+  </Screen>
+);
 
 Menu.propTypes = {
   navigation: PropTypes.shape({

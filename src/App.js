@@ -9,6 +9,7 @@ import { getUser } from './util/authStorage';
 
 const App = () => {
   let logged = getUser();
+  console.log(logged);
   if (!logged.token) {
     logged = false;
   }

@@ -4,7 +4,8 @@ const key = 'auth';
 
 export const storeUser = async (user) => {
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(user));
+    const userEncoded = JSON.stringify(user);
+    await AsyncStorage.setItem(key, userEncoded);
   } catch (e) {
     console.log(`Error storing the token ${e}`);
   }
@@ -22,7 +23,8 @@ export const getUser = async () => {
   try {
     const user = await AsyncStorage.getItem(key);
     if (user == null) return null;
-    return JSON.parse(user);
+    const decodedUser = JSON.parse(user);
+    return decodedUser;
   } catch (e) {
     console.log(`Error getting the user ${e}`);
   }

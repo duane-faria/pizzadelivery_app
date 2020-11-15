@@ -10,7 +10,7 @@ const apiClient = create({
 apiClient.addAsyncRequestTransform(async (request) => {
   const auth = await getUser();
   if (!auth || !auth.token) return;
-  request.headers.Authorization = auth.token;
+  request.headers.Authorization = `Bearer ${auth.token}`;
 });
 
 export default apiClient;
