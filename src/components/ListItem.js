@@ -1,15 +1,26 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import PropTypes from 'prop-types';
+
 import colors from '../styles/colors';
 
-export default function ListItem({Image, Text, style}) {
-  return (
+const ListItem = ({ Image, Text, style, onPress }) => (
+  <TouchableWithoutFeedback onPress={onPress}>
     <View style={[styles.container, style]}>
       {Image && <Image />}
       <Text />
     </View>
-  );
-}
+  </TouchableWithoutFeedback>
+);
+
+ListItem.propTypes = {
+  Image: PropTypes.func,
+  Text: PropTypes.func.isRequired,
+  style: PropTypes.shape({}),
+  onPress: PropTypes.func,
+};
+
+export default ListItem;
 
 const styles = StyleSheet.create({
   container: {

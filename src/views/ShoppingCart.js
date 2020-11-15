@@ -10,7 +10,7 @@ import colors from '../styles/colors';
 function AppImage() {
   return (
     <Image
-      source={require('../assets/images/1.png')}
+      source={require('../assets/images/portuguesa.png')}
       style={{ height: 90, width: 100 }}
     />
   );
@@ -51,7 +51,7 @@ function AppText() {
     </View>
   );
 }
-export default function ShoppingCart(props) {
+export default function ShoppingCart() {
   return (
     <Screen style={styles.container}>
       <View style={styles.content}>

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import colors from '../styles/colors';
 
-const Error = ({ error }) => (
-  <View style={styles.container}>
-    <Text style={styles.text}>{error}</Text>
+const Error = ({ error, styleContainer, style }) => (
+  <View style={[styles.container, styleContainer]}>
+    <Text style={[styles.text, style]}>{error}</Text>
   </View>
 );
 

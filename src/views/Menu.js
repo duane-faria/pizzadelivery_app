@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import PropTypes from 'prop-types';
 
 import Screen from '../components/Screen';
 import ListItem from '../components/ListItem';
 import colors from '../styles/colors';
+import { removeUser, getUser } from '../util/authStorage';
 
 function AppImage() {
   return (
@@ -35,8 +37,12 @@ function AppText() {
     </View>
   );
 }
-
-export default function Menu(props) {
+// removeUser();
+const Menu = ({ navigation }) => {
+  React.useEffect(() => {
+    removeUser();
+    console.log(getUser());
+  }, []);
   return (
     <Screen style={styles.container}>
       <View style={styles.content}>
@@ -44,12 +50,21 @@ export default function Menu(props) {
           Image={AppImage}
           Text={AppText}
           style={{ marginBottom: 15 }}
+          onPress={() => navigation.navigate('Flavor')}
         />
         <ListItem Image={AppImage} Text={AppText} />
       </View>
     </Screen>
   );
-}
+};
+
+Menu.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }),
+};
+
+export default Menu;
 
 const styles = StyleSheet.create({
   container: {

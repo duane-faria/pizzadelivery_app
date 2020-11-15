@@ -4,6 +4,7 @@ import { useFormikContext } from 'formik';
 
 import Input from '../Input';
 import colors from '../../styles/colors';
+import Error from '../Error';
 
 export default function InputForm({ container, style, name, ...props }) {
   const {
@@ -25,7 +26,7 @@ export default function InputForm({ container, style, name, ...props }) {
         container={container}
       />
       {errors[name] && touched[name] && (
-        <Text style={{ color: colors.primary }}>{errors[name]}</Text>
+        <Error error={errors[name]} styleContainer={{ marginTop: -5 }} />
       )}
     </>
   );

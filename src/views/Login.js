@@ -1,8 +1,9 @@
 import React from 'react';
-import { SafeAreaView, Keyboard, Text } from 'react-native';
+import { SafeAreaView, Keyboard } from 'react-native';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import ButtonSubmit from '../components/form/ButtonSubmit';
 import Form from '../components/form/Form';
@@ -10,8 +11,6 @@ import InputForm from '../components/form/InputForm';
 import ClickableText from '../components/ClickableText';
 import PizzaBackground from '../components/PizzaBackground';
 import Error from '../components/Error';
-import auth from '../api/auth';
-import useApi from '../hooks/useApi';
 import authActions from '../store/ducks/Auth';
 
 const schemaValidation = Yup.object().shape({
@@ -21,18 +20,18 @@ const schemaValidation = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
-const Login = ({ navigation, dispatch }) => {
-  const authApi = useApi(auth.login);
-
-  async function handleSubmit(data) {
+const Login = ({ navigation, loginRequest }) => {
+  function handleSubmit(data) {
     Keyboard.dismiss();
-    dispatch(authActions.loginRequest(data));
+    console.log('chamando handle');
+    // dispatch(authActions.loginRequest(data));
+    loginRequest(data);
   }
   return (
     <>
       <SafeAreaView>
         <PizzaBackground>
-          {authApi.error && <Error error="Usuário não encontrado" />}
+          {/* {Auth.error && <Error error="Usuário não encontrado" />} */}
           <Form
             initialValues={{ email: '', password: '' }}
             onSubmit={handleSubmit}
@@ -66,10 +65,12 @@ const mapStateToProps = (state) => ({
   Auth: state.Auth,
 });
 
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(authActions, dispatch);
+
 Login.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
-  dispatch: PropTypes.func.isRequired,
 };
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

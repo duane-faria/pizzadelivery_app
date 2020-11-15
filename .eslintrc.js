@@ -25,5 +25,7 @@ module.exports = {
     'no-use-before-define': 0,
     'no-console': 0,
     'implicit-arrow-linebreak': 0,
+    'react/require-default-props': 0,
+    'object-curly-newline': 0,
   },
 };
