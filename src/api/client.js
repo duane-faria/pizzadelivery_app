@@ -1,6 +1,6 @@
 import { create } from 'apisauce';
 
-import { getUser } from '../util/authStorage';
+import { store } from '../store';
 
 const apiClient = create({
   // baseURL: 'https://10.0.2.2:9000/api',
@@ -8,9 +8,9 @@ const apiClient = create({
 });
 
 apiClient.addAsyncRequestTransform(async (request) => {
-  const auth = await getUser();
-  if (!auth || !auth.token) return;
-  request.headers.Authorization = `Bearer ${auth.token}`;
+  const { token } = store.getState().Auth;
+  if (!token) return;
+  request.headers.Authorization = `Bearer ${token}`;
 });
 
 export default apiClient;

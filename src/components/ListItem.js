@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 
 import colors from '../styles/colors';
 
-const ListItem = ({ Image, Text, style, onPress }) => (
+const ListItem = ({ children, Image, Text, style, onPress }) => (
   <TouchableWithoutFeedback onPress={onPress}>
     <View style={[styles.container, style]}>
       {Image && <Image />}
-      <Text />
+      {Text && <Text />}
+      {children}
     </View>
   </TouchableWithoutFeedback>
 );

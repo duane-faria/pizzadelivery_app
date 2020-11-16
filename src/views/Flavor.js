@@ -16,7 +16,9 @@ const images = {
   queijo: require('../assets/images/queijo.png'),
   calabresa: require('../assets/images/calabresa.png'),
 };
-const FlavorComponent = ({ dispatch, Flavor, navigation }) => {
+const FlavorComponent = ({ dispatch, Flavor, navigation, route }) => {
+  const { product } = route.params;
+
   React.useEffect(() => {
     dispatch(flavorActions.loadFlavorRequest());
   }, []);
@@ -32,7 +34,12 @@ const FlavorComponent = ({ dispatch, Flavor, navigation }) => {
                 title={flavor.name}
                 key={flavor._id}
                 onPress={() =>
-                  navigation.navigate('Size', { flavorId: flavor._id })
+                  navigation.navigate('Size', {
+                    order: {
+                      product,
+                      flavor,
+                    },
+                  })
                 }
               />
             ))}
@@ -58,7 +65,6 @@ export default connect(mapStateToProps)(FlavorComponent);
 const styles = StyleSheet.create({
   container: {},
   boxContainer: {
-    marginTop: 30,
     paddingHorizontal: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',

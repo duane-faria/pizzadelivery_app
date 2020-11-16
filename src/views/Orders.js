@@ -34,7 +34,7 @@ export default function Orders(props) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 90,
+    // paddingTop: 90,
   },
   content: {
     paddingHorizontal: 20,

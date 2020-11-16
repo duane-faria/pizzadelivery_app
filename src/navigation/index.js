@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Login from '../views/Login';
 import Register from '../views/Register';
@@ -15,92 +17,97 @@ import Size from '../views/Size';
 
 const Stack = createStackNavigator();
 
-const Navigator = ({ logged = false }) => (
-  <Stack.Navigator initialRouteName={logged ? 'Menu' : 'Login'}>
-    <Stack.Screen
-      name="Login"
-      component={Login}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="Register"
-      component={Register}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="Flavor"
-      component={Flavor}
-      options={{
-        title: 'Selecione um tipo',
-        headerStyle: {
-          backgroundColor: colors.secondary,
-          elevation: 0,
-        },
-        headerTintColor: colors.white,
-      }}
-    />
-    <Stack.Screen
-      name="Menu"
-      component={Menu}
-      options={({ navigation }) => ({
-        title: 'Pizza Delivery',
-        headerTransparent: true,
-        headerTitleAlign: 'center',
-        headerTintColor: colors.white,
-        headerLeft: () => (
-          <TouchableOpacity
-            style={styles.refresh}
-            onPress={() => navigation.navigate('Orders')}>
-            <Icon name="refresh" size={24} color="#fff" />
-          </TouchableOpacity>
-        ),
-        headerRight: () => (
-          <TouchableOpacity
-            style={styles.shoppingCart}
-            onPress={() => navigation.navigate('ShoppingCart')}>
-            <Icon name="shopping-outline" size={22} color="#fff" />
-          </TouchableOpacity>
-        ),
-      })}
-    />
-    <Stack.Screen
-      name="Orders"
-      component={Orders}
-      options={{
-        title: 'Meus pedidos',
-        headerTransparent: true,
-        headerTintColor: colors.white,
-      }}
-    />
-    <Stack.Screen
-      name="ShoppingCart"
-      component={ShoppingCart}
-      options={{
-        title: 'Carrinho',
-        headerTransparent: true,
-        headerTintColor: colors.white,
-      }}
-    />
-    <Stack.Screen
-      name="RequestOrder"
-      component={RequestOrder}
-      options={{
-        title: 'Realizar pedido',
-        headerTransparent: true,
-        headerTintColor: colors.white,
-      }}
-    />
-    <Stack.Screen
-      name="Size"
-      component={Size}
-      options={{
-        title: 'Tamanho',
-        headerTransparent: true,
-        headerTintColor: colors.white,
-      }}
-    />
-  </Stack.Navigator>
-);
+const Navigator = ({ Auth }) => {
+  const logged = Auth.token.length > 0;
+  return (
+    <Stack.Navigator initialRouteName={logged ? 'Menu' : 'Login'}>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Flavor"
+        component={Flavor}
+        options={{
+          title: 'Selecione um tipo',
+          headerTransparent: true,
+
+          headerStyle: {
+            backgroundColor: colors.secondary,
+            elevation: 0,
+          },
+          headerTintColor: colors.white,
+        }}
+      />
+      <Stack.Screen
+        name="Menu"
+        component={Menu}
+        options={({ navigation }) => ({
+          title: 'Pizza Delivery',
+          headerTransparent: true,
+          headerTitleAlign: 'center',
+          headerTintColor: colors.white,
+          headerLeft: () => (
+            <TouchableOpacity
+              style={styles.refresh}
+              onPress={() => navigation.navigate('Orders')}>
+              <Icon name="refresh" size={24} color="#fff" />
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              style={styles.shoppingCart}
+              onPress={() => navigation.navigate('ShoppingCart')}>
+              <Icon name="shopping-outline" size={22} color="#fff" />
+            </TouchableOpacity>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Orders"
+        component={Orders}
+        options={{
+          title: 'Meus pedidos',
+          headerTransparent: true,
+          headerTintColor: colors.white,
+        }}
+      />
+      <Stack.Screen
+        name="ShoppingCart"
+        component={ShoppingCart}
+        options={{
+          title: 'Carrinho',
+          headerTransparent: true,
+          headerTintColor: colors.white,
+        }}
+      />
+      <Stack.Screen
+        name="RequestOrder"
+        component={RequestOrder}
+        options={{
+          title: 'Realizar pedido',
+          headerTransparent: true,
+          headerTintColor: colors.white,
+        }}
+      />
+      <Stack.Screen
+        name="Size"
+        component={Size}
+        options={{
+          title: 'Tamanho',
+          headerTransparent: true,
+          headerTintColor: colors.white,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const styles = StyleSheet.create({
   shoppingCart: {
@@ -118,4 +125,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Navigator;
+const mapStateToProps = (state) => ({
+  Auth: state.Auth,
+});
+
+connect.propTypes = {
+  Auth: PropTypes.shape({
+    token: PropTypes.string.isRequired,
+  }),
+};
+
+export default connect(mapStateToProps)(Navigator);

@@ -20,9 +20,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     zIndex: -1,
+    paddingTop: 60,
   },
   image: {
-    height: 120,
+    height: 100,
     width: '100%',
     position: 'absolute',
   },

@@ -1,25 +1,19 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
-import store from './store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import Navigator from './navigation';
 import { navigationRef } from './navigation/root';
-import { getUser } from './util/authStorage';
+import { store, persistor } from './store';
 
-const App = () => {
-  let logged = getUser();
-  console.log(logged);
-  if (!logged.token) {
-    logged = false;
-  }
-  return (
-    <Provider store={store}>
+const App = () => (
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
       <NavigationContainer ref={navigationRef}>
-        <Navigator logged={logged} />
+        <Navigator />
       </NavigationContainer>
-    </Provider>
-  );
-};
-
+    </PersistGate>
+  </Provider>
+);
 export default App;

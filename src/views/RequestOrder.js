@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text, Alert } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Yup from 'yup';
+import Arrow from 'react-native-vector-icons/MaterialIcons';
 
 import ButtonSubmit from '../components/form/ButtonSubmit';
 import Form from '../components/form/Form';
@@ -69,16 +71,39 @@ export default function RequestOrder({ navigation }) {
             container={{ elevation: 7 }}
             style={{ fontSize: 18 }}
           />
-          <ButtonSubmit
-            title="FINALIZAR"
-            style={{
-              width: 150,
-              backgroundColor: colors.primary,
-              padding: 10,
-              borderRadius: 20,
-              marginTop: 10,
-            }}
-          />
+          <View
+            style={{ width: '100%', marginTop: 25, alignItems: 'flex-end' }}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: colors.primary,
+                width: 150,
+                height: 35,
+                borderRadius: 20,
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row',
+                paddingHorizontal: 15,
+              }}
+              onPress={() => {
+                Alert.alert('Alerta', 'Seu pedido foi realizado com sucesso');
+                navigation.navigate('RequestOrder');
+              }}>
+              <Text
+                style={{
+                  textTransform: 'uppercase',
+                  fontSize: 12,
+                  color: colors.white,
+                }}>
+                Finalizar
+              </Text>
+              <Arrow
+                name="keyboard-arrow-right"
+                size={25}
+                color={colors.white}
+                style={{ marginRight: 5, marginLeft: -2 }}
+              />
+            </TouchableOpacity>
+          </View>
         </Form>
       </View>
     </Screen>

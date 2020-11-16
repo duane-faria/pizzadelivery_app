@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import BoxItem from '../components/BoxItem';
 import Screen from '../components/Screen';
 import sizeActions from '../store/ducks/Size';
+import cartActions from '../store/ducks/Cart';
 
 const images = {
   gigante: require('../assets/images/tamanho-gg.png'),
@@ -14,8 +15,7 @@ const images = {
 };
 
 const Size = ({ route, dispatch, Size, navigation }) => {
-  const { flavorId } = route.params;
-
+  const { order } = route.params;
   React.useEffect(() => {
     dispatch(sizeActions.loadSizeRequest());
   }, []);
@@ -34,9 +34,20 @@ const Size = ({ route, dispatch, Size, navigation }) => {
                 style={styles.boxItem}
                 image={url}
                 title={size.name}
-                subTitle={size.basePrice}
+                subTitle={`R$ ${size.basePrice * order.flavor.price}`}
                 key={size._id}
-                onPress={() => navigation.navigate('ShoppingCart')}
+                onPress={() => {
+                  const orderItem = {
+                    productId: order.product._id,
+                    productName: order.product.name,
+                    flavorId: order.flavor._id,
+                    flavorName: order.flavor.name,
+                    sizeId: size._id,
+                    sizeName: size.name,
+                  };
+                  dispatch(cartActions.addItem(orderItem));
+                  navigation.navigate('ShoppingCart');
+                }}
               />
             );
           })}
@@ -53,7 +64,6 @@ export default connect(mapStateToProps)(Size);
 const styles = StyleSheet.create({
   container: {},
   boxContainer: {
-    marginTop: 50,
     paddingHorizontal: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',

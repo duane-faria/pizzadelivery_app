@@ -2,11 +2,12 @@ import React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import Screen from '../components/Screen';
 import ListItem from '../components/ListItem';
 import colors from '../styles/colors';
-import { getUser } from '../util/authStorage';
+import typeActions from '../store/ducks/Type';
 
 function AppImage() {
   return (
@@ -37,19 +38,26 @@ function AppText() {
     </View>
   );
 }
-const Menu = ({ navigation }) => (
-  <Screen style={styles.container}>
-    <View style={styles.content}>
-      <ListItem
-        Image={AppImage}
-        Text={AppText}
-        style={{ marginBottom: 15 }}
-        onPress={() => navigation.navigate('Flavor')}
-      />
-      <ListItem Image={AppImage} Text={AppText} />
-    </View>
-  </Screen>
-);
+const Menu = ({ dispatch, navigation, Type }) => {
+  React.useEffect(() => {
+    dispatch(typeActions.loadTypeRequest());
+  }, []);
+
+  return (
+    <Screen style={styles.container}>
+      <View style={styles.content}>
+        <ListItem
+          Image={AppImage}
+          Text={AppText}
+          style={{ marginBottom: 15 }}
+          onPress={() =>
+            navigation.navigate('Flavor', { product: Type.data[0] })
+          }
+        />
+      </View>
+    </Screen>
+  );
+};
 
 Menu.propTypes = {
   navigation: PropTypes.shape({
@@ -57,11 +65,15 @@ Menu.propTypes = {
   }),
 };
 
-export default Menu;
+const mapStateToProps = (state) => ({
+  Type: state.Type,
+});
+
+export default connect(mapStateToProps)(Menu);
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 80,
+    // paddingTop: 60,
   },
   content: {
     paddingHorizontal: 15,

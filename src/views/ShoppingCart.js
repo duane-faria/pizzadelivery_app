@@ -2,21 +2,27 @@ import React from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Arrow from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux';
 
 import ListItem from '../components/ListItem';
 import Screen from '../components/Screen';
 import colors from '../styles/colors';
+import cartActions from '../store/ducks/Cart';
 
-function AppImage() {
-  return (
-    <Image
-      source={require('../assets/images/portuguesa.png')}
-      style={{ height: 90, width: 100 }}
-    />
-  );
+const images = {
+  portuguesa: require('../assets/images/portuguesa.png'),
+  pepperoni: require('../assets/images/pepperoni.png'),
+  atum: require('../assets/images/atum.png'),
+  brocolis: require('../assets/images/brocolis.png'),
+  queijo: require('../assets/images/queijo.png'),
+  calabresa: require('../assets/images/calabresa.png'),
+};
+
+function AppImage({ url }) {
+  return <Image source={url} style={{ height: 90, width: 100 }} />;
 }
 
-function AppText() {
+function AppText({ flavor, price, size, remove }) {
   return (
     <View
       style={{
@@ -27,9 +33,11 @@ function AppText() {
       }}>
       <View style={{ flexDirection: 'column', width: 180 }}>
         <Text style={{ color: colors.secondary, fontSize: 16 }}>
-          Pizza Calabresa
+          Pizza {flavor}
         </Text>
-        <Text style={{ color: colors.gray, marginTop: 5 }}>Tamanho: Média</Text>
+        <Text style={{ color: colors.gray, marginTop: 5 }}>
+          Tamanho: {size}
+        </Text>
         <Text
           style={{
             color: colors.secondary,
@@ -37,10 +45,10 @@ function AppText() {
             fontWeight: 'bold',
             marginTop: 5,
           }}>
-          R$42, 00
+          {price}
         </Text>
       </View>
-      <TouchableOpacity style={{ width: 40 }}>
+      <TouchableOpacity style={{ width: 40 }} onPress={remove}>
         <Icon
           name="trash-can-outline"
           size={25}
@@ -51,31 +59,41 @@ function AppText() {
     </View>
   );
 }
-export default function ShoppingCart() {
+const ShoppingCart = ({ Cart, dispatch, navigation }) => {
+  React.useState(() => {
+    console.log(Cart, 'shopping cart');
+  }, [Cart]);
   return (
-    <Screen style={styles.container}>
+    <Screen>
       <View style={styles.content}>
-        <ListItem
-          Text={AppText}
-          Image={AppImage}
-          style={{ justifyContent: 'space-between' }}
-        />
-        <View style={{ width: '100%', marginTop: 25 }}>
+        {Cart.orders.map((o) => (
+          <ListItem>
+            <AppImage url={images[o.flavorName.toLowerCase()]} />
+            <AppText
+              remove={() => dispatch()}
+              flavor={o.flavorName}
+              size={o.sizeName}
+              price={o.price}
+            />
+          </ListItem>
+        ))}
+        <View style={{ width: '100%', marginTop: 25, alignItems: 'flex-end' }}>
           <TouchableOpacity
             style={{
               backgroundColor: colors.primary,
-              width: 220,
-              height: 45,
+              width: 150,
+              height: 35,
               borderRadius: 20,
               justifyContent: 'space-between',
               alignItems: 'center',
               flexDirection: 'row',
-              paddingHorizontal: 20,
-            }}>
+              paddingHorizontal: 15,
+            }}
+            onPress={() => navigation.navigate('RequestOrder')}>
             <Text
               style={{
                 textTransform: 'uppercase',
-                fontSize: 16,
+                fontSize: 12,
                 color: colors.white,
               }}>
               Finalizar pedido
@@ -91,12 +109,14 @@ export default function ShoppingCart() {
       </View>
     </Screen>
   );
-}
+};
 
+const mapStateToProps = (state) => ({
+  Cart: state.Cart,
+});
+
+export default connect(mapStateToProps)(ShoppingCart);
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 90,
-  },
   content: {
     marginHorizontal: 15,
   },
