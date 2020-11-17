@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, TextInput} from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
 
-export default function Input({container, ...props}) {
+export default function Input({ container, ...props }) {
   return (
     <View style={[styles.container, container]}>
       <TextInput {...props} placeholderTextColor="#999999" />
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingHorizontal: 10,
-    marginVertical: 10,
+    // marginVertical: 10,
     alignItems: 'center',
     minHeight: 50,
   },

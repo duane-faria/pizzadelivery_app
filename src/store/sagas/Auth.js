@@ -15,6 +15,6 @@ export function* sagaLogin(action) {
     navigate('Menu');
   } catch (error) {
     console.log(`sagaLogin error ${error}`);
-    // return yield put(authActions.loginFailure());
+    return yield put(authActions.loginFailure());
   }
 }

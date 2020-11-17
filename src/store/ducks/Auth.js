@@ -28,6 +28,12 @@ export const reducers = createReducer(INITIAL_STATE, {
     email: data.user.email,
     error: false,
   }),
-  // [Types.LOGOUT]: (state) => ({}),
+  [Types.LOGOUT]: () => ({
+    token: '',
+    id: '',
+    name: '',
+    email: '',
+    error: false,
+  }),
   [Types.LOGIN_FAILURE]: (state) => ({ ...state, error: true }),
 });

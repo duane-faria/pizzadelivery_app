@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useFormikContext } from 'formik';
 
 import Input from '../Input';
@@ -16,7 +16,7 @@ export default function InputForm({ container, style, name, ...props }) {
   } = useFormikContext();
 
   return (
-    <>
+    <View style={{ marginBottom: 10, width: '100%' }}>
       <Input
         onChangeText={(text) => setFieldValue(name, text)}
         onBlur={() => setFieldTouched(name)}
@@ -26,9 +26,11 @@ export default function InputForm({ container, style, name, ...props }) {
         container={container}
       />
       {errors[name] && touched[name] && (
-        <Error error={errors[name]} styleContainer={{ marginTop: -5 }} />
+        <View style={{ width: '100%', alignItems: 'flex-start' }}>
+          <Error error={errors[name]} styleContainer={{ marginVertical: 10 }} />
+        </View>
       )}
-    </>
+    </View>
   );
 }
 

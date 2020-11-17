@@ -16,7 +16,7 @@ const schemaValidation = Yup.object().shape({
   email: Yup.string()
     .email('Insira um e-mail válido')
     .required('E-mail é obrigatório'),
-  name: Yup.string().required(),
+  name: Yup.string().required('Nome é obrigatório'),
   password: Yup.string().required('Senha é obrigatória'),
 });
 
@@ -37,7 +37,7 @@ const Register = ({ navigation }) => {
                 backgroundColor: colors.white,
                 height: 30,
                 borderRadius: 10,
-                marginTop: 20,
+                marginTop: 25,
                 paddingHorizontal: 10,
                 justifyContent: 'center',
               }}>
@@ -46,25 +46,27 @@ const Register = ({ navigation }) => {
               </Text>
             </View>
           )}
-          <Form
-            initialValues={{ email: '', name: '', password: '' }}
-            onSubmit={handleSubmit}
-            validationSchema={schemaValidation}>
-            <InputForm name="name" placeholder="Nome completo" />
-            <InputForm name="email" placeholder="Seu e-mail" />
-            <InputForm
-              autoCapitalize="none"
-              name="password"
-              placeholder="Senha secreta"
-              textContentType="password"
-              secureTextEntry
-            />
-            <ButtonSubmit title="Criar conta" />
-            <ClickableText
-              text="Já tenho conta"
-              onPress={() => navigation.navigate('Login')}
-            />
-          </Form>
+          <View style={{ width: '100%', marginTop: 10, alignItems: 'center' }}>
+            <Form
+              initialValues={{ email: '', name: '', password: '' }}
+              onSubmit={handleSubmit}
+              validationSchema={schemaValidation}>
+              <InputForm name="name" placeholder="Nome completo" />
+              <InputForm name="email" placeholder="Seu e-mail" />
+              <InputForm
+                autoCapitalize="none"
+                name="password"
+                placeholder="Senha secreta"
+                textContentType="password"
+                secureTextEntry
+              />
+              <ButtonSubmit title="Criar conta" />
+              <ClickableText
+                text="Já tenho conta"
+                onPress={() => navigation.navigate('Login')}
+              />
+            </Form>
+          </View>
         </PizzaBackground>
       </SafeAreaView>
     </>

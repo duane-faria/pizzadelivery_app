@@ -1,8 +1,9 @@
 import { createReducer, createActions } from 'reduxsauce';
-// import Immutable from 'seamless-immutable';
 
 const { Types, Creators } = createActions({
   addItem: ['item'],
+  removeItem: ['id'],
+  clearCart: null,
 });
 
 export const cartTypes = Types;
@@ -15,6 +16,11 @@ export const INITIAL_STATE = {
 
 export const reducers = createReducer(INITIAL_STATE, {
   [Types.ADD_ITEM]: (state, { item }) => ({
-    orders: [{ id: Math.random(), ...item }],
+    orders: [...state.orders, { id: Math.random(), ...item }],
   }),
+  [Types.REMOVE_ITEM]: (state, { id }) => {
+    const remaining = state.orders.filter((o) => o.id !== id);
+    return { orders: remaining };
+  },
+  [Types.CLEAR_CART]: () => ({ orders: [] }),
 });

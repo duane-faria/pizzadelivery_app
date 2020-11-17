@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Arrow from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import ListItem from '../components/ListItem';
 import Screen from '../components/Screen';
 import colors from '../styles/colors';
 import cartActions from '../store/ducks/Cart';
+import navigate from '../navigation/root';
 
 const images = {
   portuguesa: require('../assets/images/portuguesa.png'),
@@ -33,7 +35,7 @@ function AppText({ flavor, price, size, remove }) {
       }}>
       <View style={{ flexDirection: 'column', width: 180 }}>
         <Text style={{ color: colors.secondary, fontSize: 16 }}>
-          Pizza {flavor}
+          Pizza de {flavor}
         </Text>
         <Text style={{ color: colors.gray, marginTop: 5 }}>
           Tamanho: {size}
@@ -59,25 +61,54 @@ function AppText({ flavor, price, size, remove }) {
     </View>
   );
 }
-const ShoppingCart = ({ Cart, dispatch, navigation }) => {
-  React.useState(() => {
-    console.log(Cart, 'shopping cart');
-  }, [Cart]);
-  return (
-    <Screen>
-      <View style={styles.content}>
-        {Cart.orders.map((o) => (
-          <ListItem>
-            <AppImage url={images[o.flavorName.toLowerCase()]} />
-            <AppText
-              remove={() => dispatch()}
-              flavor={o.flavorName}
-              size={o.sizeName}
-              price={o.price}
-            />
-          </ListItem>
-        ))}
-        <View style={{ width: '100%', marginTop: 25, alignItems: 'flex-end' }}>
+const ShoppingCart = ({ Cart, dispatch, navigation }) => (
+  <Screen>
+    <View style={styles.content}>
+      {Cart.orders.length > 0 ? (
+        Cart.orders.map((o) => (
+          <View style={{ marginBottom: 10 }}>
+            <ListItem>
+              <AppImage url={images[o.flavorName.toLowerCase()]} />
+              <AppText
+                remove={() => dispatch(cartActions.removeItem(o.id))}
+                flavor={o.flavorName}
+                size={o.sizeName}
+                price={`R$ ${o.price}`}
+              />
+            </ListItem>
+          </View>
+        ))
+      ) : (
+        <ListItem>
+          <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
+            Não há items no carrinho.
+          </Text>
+        </ListItem>
+      )}
+    </View>
+    <View
+      style={{
+        marginTop: 20,
+        paddingHorizontal: 30,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+      }}>
+      <TouchableWithoutFeedback
+        onPress={() => navigation.navigate('Menu')}
+        style={{
+          backgroundColor: colors.secondary,
+          width: 40,
+          height: 40,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 20,
+        }}>
+        <MaterialIcon name="add-shopping-cart" size={25} color={colors.white} />
+      </TouchableWithoutFeedback>
+      {Cart.orders.length > 0 && (
+        <View>
           <TouchableOpacity
             style={{
               backgroundColor: colors.primary,
@@ -89,7 +120,7 @@ const ShoppingCart = ({ Cart, dispatch, navigation }) => {
               flexDirection: 'row',
               paddingHorizontal: 15,
             }}
-            onPress={() => navigation.navigate('RequestOrder')}>
+            onPress={() => navigate('RequestOrder')}>
             <Text
               style={{
                 textTransform: 'uppercase',
@@ -98,7 +129,7 @@ const ShoppingCart = ({ Cart, dispatch, navigation }) => {
               }}>
               Finalizar pedido
             </Text>
-            <Arrow
+            <MaterialIcon
               name="keyboard-arrow-right"
               size={25}
               color={colors.white}
@@ -106,10 +137,10 @@ const ShoppingCart = ({ Cart, dispatch, navigation }) => {
             />
           </TouchableOpacity>
         </View>
-      </View>
-    </Screen>
-  );
-};
+      )}
+    </View>
+  </Screen>
+);
 
 const mapStateToProps = (state) => ({
   Cart: state.Cart,

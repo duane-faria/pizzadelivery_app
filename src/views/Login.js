@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Keyboard } from 'react-native';
+import { SafeAreaView, Keyboard, View } from 'react-native';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -20,41 +20,46 @@ const schemaValidation = Yup.object().shape({
   password: Yup.string().required('Senha é obrigatória'),
 });
 
-const Login = ({ navigation, loginRequest }) => {
+const Login = ({ Auth, navigation, loginRequest }) => {
   function handleSubmit(data) {
     Keyboard.dismiss();
-    console.log('chamando handle');
-    // dispatch(authActions.loginRequest(data));
     loginRequest(data);
   }
   return (
     <>
       <SafeAreaView>
         <PizzaBackground>
-          {/* {Auth.error && <Error error="Usuário não encontrado" />} */}
-          <Form
-            initialValues={{ email: '', password: '' }}
-            onSubmit={handleSubmit}
-            validationSchema={schemaValidation}>
-            <InputForm
-              name="email"
-              placeholder="Seu e-mail"
-              style={{ fontFamily: 'Roboto' }}
-            />
-            <InputForm
-              autoCapitalize="none"
-              name="password"
-              placeholder="Senha secreta"
-              textContentType="password"
-              secureTextEntry
-              style={{ fontFamily: 'Roboto' }}
-            />
-            <ButtonSubmit title="Entrar" />
-            <ClickableText
-              text="Criar conta gratuita"
-              onPress={() => navigation.navigate('Register')}
-            />
-          </Form>
+          <View style={{ marginTop: 10, width: '100%', alignItems: 'center' }}>
+            {Auth.error && (
+              <Error
+                error="Usuário ou senha incorretos."
+                styleContainer={{ marginBottom: 10 }}
+              />
+            )}
+            <Form
+              initialValues={{ email: '', password: '' }}
+              onSubmit={handleSubmit}
+              validationSchema={schemaValidation}>
+              <InputForm
+                name="email"
+                placeholder="Seu e-mail"
+                style={{ fontFamily: 'Roboto' }}
+              />
+              <InputForm
+                autoCapitalize="none"
+                name="password"
+                placeholder="Senha secreta"
+                textContentType="password"
+                secureTextEntry
+                style={{ fontFamily: 'Roboto' }}
+              />
+              <ButtonSubmit title="Entrar" />
+              <ClickableText
+                text="Criar conta gratuita"
+                onPress={() => navigation.navigate('Register')}
+              />
+            </Form>
+          </View>
         </PizzaBackground>
       </SafeAreaView>
     </>

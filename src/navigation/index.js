@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
@@ -17,8 +17,11 @@ import Size from '../views/Size';
 
 const Stack = createStackNavigator();
 
-const Navigator = ({ Auth }) => {
+const Navigator = ({ Auth, Cart }) => {
   const logged = Auth.token.length > 0;
+  let total = 0;
+  Cart.orders.map((i) => (total += i.price));
+
   return (
     <Stack.Navigator initialRouteName={logged ? 'Menu' : 'Login'}>
       <Stack.Screen
@@ -61,11 +64,27 @@ const Navigator = ({ Auth }) => {
             </TouchableOpacity>
           ),
           headerRight: () => (
-            <TouchableOpacity
-              style={styles.shoppingCart}
-              onPress={() => navigation.navigate('ShoppingCart')}>
-              <Icon name="shopping-outline" size={22} color="#fff" />
-            </TouchableOpacity>
+            <View style={{ position: 'relative' }}>
+              {total > 0 && (
+                <View
+                  style={{
+                    width: 10,
+                    height: 10,
+                    backgroundColor: '#ffff9e',
+                    position: 'absolute',
+                    zIndex: 5,
+                    right: 25,
+                    top: 0,
+                    borderRadius: 10 / 2,
+                  }}
+                />
+              )}
+              <TouchableOpacity
+                style={[styles.shoppingCart, { zIndex: -1 }]}
+                onPress={() => navigation.navigate('ShoppingCart')}>
+                <Icon name="shopping-outline" size={22} color="#fff" />
+              </TouchableOpacity>
+            </View>
           ),
         })}
       />
@@ -85,6 +104,8 @@ const Navigator = ({ Auth }) => {
           title: 'Carrinho',
           headerTransparent: true,
           headerTintColor: colors.white,
+          headerRight: () => <Text style={styles.totalPrice}>R$ {total}</Text>,
+          headerLeft: null,
         }}
       />
       <Stack.Screen
@@ -118,7 +139,15 @@ const styles = StyleSheet.create({
     height: 35,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 3,
+    // elevation: 3,
+    // zIndex: 1,
+    position: 'relative',
+  },
+  totalPrice: {
+    color: colors.white,
+    fontSize: 18,
+    marginRight: 20,
+    fontWeight: 'bold',
   },
   refresh: {
     marginLeft: 25,
@@ -127,6 +156,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   Auth: state.Auth,
+  Cart: state.Cart,
 });
 
 connect.propTypes = {

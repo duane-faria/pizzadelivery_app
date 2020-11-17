@@ -44,6 +44,7 @@ const Size = ({ route, dispatch, Size, navigation }) => {
                     flavorName: order.flavor.name,
                     sizeId: size._id,
                     sizeName: size.name,
+                    price: size.basePrice * order.flavor.price,
                   };
                   dispatch(cartActions.addItem(orderItem));
                   navigation.navigate('ShoppingCart');

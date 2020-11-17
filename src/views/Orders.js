@@ -1,9 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Modal } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
 
 import ListItem from '../components/ListItem';
 import Screen from '../components/Screen';
 import colors from '../styles/colors';
+import authActions from '../store/ducks/Auth';
+import cartActions from '../store/ducks/Cart';
 
 const AppText = () => (
   <View style={{ flexDirection: 'column', paddingHorizontal: 15 }}>
@@ -21,16 +25,28 @@ const AppText = () => (
   </View>
 );
 
-export default function Orders(props) {
-  return (
-    <Screen style={styles.container}>
-      <View style={styles.content}>
-        <ListItem Text={AppText} style={{ marginBottom: 15 }} />
-        <ListItem Text={AppText} />
-      </View>
-    </Screen>
-  );
-}
+const Orders = ({ dispatch, navigation }) => (
+  <Screen style={styles.container}>
+    <View style={styles.content}>
+      <ListItem Text={AppText} style={{ marginBottom: 15 }} />
+      <ListItem Text={AppText} />
+    </View>
+    <TouchableOpacity
+      onPress={() => {
+        dispatch(authActions.logout());
+        dispatch(cartActions.clearCart());
+        navigation.navigate('Login');
+      }}>
+      <Text>Sair</Text>
+    </TouchableOpacity>
+  </Screen>
+);
+
+const mapStateToProps = (state) => ({
+  Auth: state.Auth,
+});
+
+export default connect(mapStateToProps)(Orders);
 
 const styles = StyleSheet.create({
   container: {
