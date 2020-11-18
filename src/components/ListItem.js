@@ -16,7 +16,7 @@ const ListItem = ({ children, Image, Text, style, onPress }) => (
 
 ListItem.propTypes = {
   Image: PropTypes.func,
-  Text: PropTypes.func.isRequired,
+  Text: PropTypes.func,
   style: PropTypes.shape({}),
   onPress: PropTypes.func,
 };

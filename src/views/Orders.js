@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 
 import ListItem from '../components/ListItem';
 import Screen from '../components/Screen';
 import colors from '../styles/colors';
-import authActions from '../store/ducks/Auth';
 import cartActions from '../store/ducks/Cart';
 
 const AppText = ({ order }) => (
@@ -36,25 +35,22 @@ const Orders = ({ Auth, Orders, dispatch, navigation }) => {
     <Screen style={styles.container}>
       <ScrollView>
         <View style={styles.content}>
-          {/* <ListItem Text={AppText} style={{ marginBottom: 15 }} /> */}
-          {/* <ListItem Text={AppText} /> */}
-          {Orders.docs &&
+          {Orders.docs && Orders.docs.length > 0 ? (
             Orders.docs.map((o) => (
-              <View style={{ marginBottom: 15 }}>
+              <View style={{ marginBottom: 15 }} key={o._id}>
                 <ListItem>
                   <AppText order={o} />
                 </ListItem>
               </View>
-            ))}
+            ))
+          ) : (
+            <ListItem>
+              <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
+                Não há pedidos ainda.
+              </Text>
+            </ListItem>
+          )}
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            dispatch(authActions.logout());
-            dispatch(cartActions.clearCart());
-            navigation.navigate('Login');
-          }}>
-          <Text>Sair</Text>
-        </TouchableOpacity>
       </ScrollView>
     </Screen>
   );

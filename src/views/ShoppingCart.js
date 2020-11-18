@@ -66,7 +66,7 @@ const ShoppingCart = ({ Cart, dispatch, navigation }) => (
     <View style={styles.content}>
       {Cart.orders.length > 0 ? (
         Cart.orders.map((o) => (
-          <View style={{ marginBottom: 10 }}>
+          <View style={{ marginBottom: 10 }} key={o._id}>
             <ListItem>
               <AppImage url={images[o.flavorName.toLowerCase()]} />
               <AppText
