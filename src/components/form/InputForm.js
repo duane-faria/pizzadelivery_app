@@ -3,10 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { useFormikContext } from 'formik';
 
 import Input from '../Input';
-import colors from '../../styles/colors';
 import Error from '../Error';
 
-export default function InputForm({ container, style, name, ...props }) {
+export default function InputForm({ width, container, style, name, ...props }) {
   const {
     setFieldTouched,
     setFieldValue,
@@ -16,7 +15,7 @@ export default function InputForm({ container, style, name, ...props }) {
   } = useFormikContext();
 
   return (
-    <View style={{ marginBottom: 10, width: '100%' }}>
+    <View style={{ marginBottom: 10, width: width || '100%' }}>
       <Input
         onChangeText={(text) => setFieldValue(name, text)}
         onBlur={() => setFieldTouched(name)}
@@ -26,7 +25,7 @@ export default function InputForm({ container, style, name, ...props }) {
         container={container}
       />
       {errors[name] && touched[name] && (
-        <View style={{ width: '100%', alignItems: 'flex-start' }}>
+        <View style={{ width: width || '100%', alignItems: 'flex-start' }}>
           <Error error={errors[name]} styleContainer={{ marginVertical: 10 }} />
         </View>
       )}

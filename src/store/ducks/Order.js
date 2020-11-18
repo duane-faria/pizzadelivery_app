@@ -1,18 +1,19 @@
 import { createReducer, createActions } from 'reduxsauce';
 
 const { Types, Creators } = createActions({
-  loadTypeRequest: null,
-  loadTypeSuccess: ['data'],
+  sendOrderRequest: ['order'],
 });
 
-export const typeTypes = Types;
+export const cartTypes = Types;
 
 export default Creators;
 
 export const INITIAL_STATE = {
-  data: [],
+  orders: [],
 };
 
 export const reducers = createReducer(INITIAL_STATE, {
-  [Types.LOAD_TYPE_SUCCESS]: (state, { data }) => ({ data: [{ ...data }] }),
+  [Types.SEND_ORDER_SU]: (state, { item }) => ({
+    orders: [...state.orders, { id: Math.random(), ...item }],
+  }),
 });

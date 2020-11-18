@@ -18,7 +18,6 @@ const images = {
 };
 const FlavorComponent = ({ dispatch, Flavor, navigation, route }) => {
   const { product } = route.params;
-
   React.useEffect(() => {
     dispatch(flavorActions.loadFlavorRequest());
   }, []);

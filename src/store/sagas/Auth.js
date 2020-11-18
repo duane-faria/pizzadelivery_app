@@ -6,7 +6,6 @@ import * as authStorage from '../../util/authStorage';
 import navigate from '../../navigation/root';
 
 export function* sagaLogin(action) {
-  console.log(action);
   const { credentials } = action;
   try {
     const response = yield call(client.post, 'session', credentials);

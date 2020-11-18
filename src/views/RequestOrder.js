@@ -1,26 +1,27 @@
 import React from 'react';
-import { View, StyleSheet, Text, Alert } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, StyleSheet, Alert } from 'react-native';
 import * as Yup from 'yup';
-import Arrow from 'react-native-vector-icons/MaterialIcons';
 
-import ButtonSubmit from '../components/form/ButtonSubmit';
+import { connect } from 'react-redux';
 import Form from '../components/form/Form';
 import InputForm from '../components/form/InputForm';
 import Screen from '../components/Screen';
-import colors from '../styles/colors';
+import SmallSubmitButton from '../components/form/SmallSubmitButton';
+import cartActions from '../store/ducks/Cart';
 
 const schemaValidation = Yup.object().shape({
-  email: Yup.string()
-    .email('Insira um e-mail válido')
-    .required('E-mail é obrigatório'),
-  password: Yup.string().required('Senha é obrigatória'),
+  cep: Yup.string().required('Cep é obrigatória'),
+  street: Yup.string().required('Rua é obrigatória'),
+  district: Yup.string().required('Bairro é obrigatória'),
 });
 
-export default function RequestOrder({ navigation }) {
-  function handleSubmit(data) {
-    console.log(data);
-    navigation.navigate('Menu');
+const RequestOrder = ({ Items, navigation, dispatch }) => {
+  function submit(info) {
+    dispatch(
+      cartActions.sendOrder({ ...info, data: Items }, () => console.log('fim')),
+    );
+    Alert.alert('Mensagem', 'Seu pedido foi realizado com sucesso');
+    navigation.navigate('Orders');
   }
   return (
     <Screen style={styles.container}>
@@ -33,7 +34,7 @@ export default function RequestOrder({ navigation }) {
             number: '',
             district: '',
           }}
-          onSubmit={handleSubmit}
+          onSubmit={submit}
           validationSchema={schemaValidation}>
           <InputForm
             autoCapitalize="none"
@@ -51,18 +52,24 @@ export default function RequestOrder({ navigation }) {
             container={{ elevation: 7 }}
             style={{ fontSize: 18 }}
           />
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', maxWidth: '100%' }}>
             <InputForm
               name="street"
               placeholder="Rua"
-              container={{ elevation: 7, width: '75%', marginRight: 5 }}
+              container={{
+                elevation: 7,
+                marginRight: 15,
+              }}
+              width="80%"
               style={{ fontSize: 18 }}
             />
+
             <InputForm
               name="number"
               placeholder="Nº"
-              container={{ elevation: 7, width: '25%' }}
+              container={{ elevation: 7 }}
               style={{ fontSize: 18 }}
+              width="20%"
             />
           </View>
           <InputForm
@@ -73,50 +80,24 @@ export default function RequestOrder({ navigation }) {
           />
           <View
             style={{ width: '100%', marginTop: 25, alignItems: 'flex-end' }}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: colors.primary,
-                width: 150,
-                height: 35,
-                borderRadius: 20,
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexDirection: 'row',
-                paddingHorizontal: 15,
-              }}
-              onPress={() => {
-                Alert.alert('Alerta', 'Seu pedido foi realizado com sucesso');
-                navigation.navigate('RequestOrder');
-              }}>
-              <Text
-                style={{
-                  textTransform: 'uppercase',
-                  fontSize: 12,
-                  color: colors.white,
-                }}>
-                Finalizar
-              </Text>
-              <Arrow
-                name="keyboard-arrow-right"
-                size={25}
-                color={colors.white}
-                style={{ marginRight: 5, marginLeft: -2 }}
-              />
-            </TouchableOpacity>
+            <SmallSubmitButton />
           </View>
         </Form>
       </View>
     </Screen>
   );
-}
+};
+const mapStateToProps = (state) => ({
+  Items: state.Cart.orders,
+});
 
+export default connect(mapStateToProps)(RequestOrder);
 const styles = StyleSheet.create({
   container: {
     paddingTop: 60,
   },
   content: {
     paddingHorizontal: 20,
-    // backgroundColor: 'blue',
     flex: 1,
   },
 });

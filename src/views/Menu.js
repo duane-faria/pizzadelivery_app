@@ -51,7 +51,7 @@ const Menu = ({ dispatch, navigation, Type }) => {
           Text={AppText}
           style={{ marginBottom: 15 }}
           onPress={() =>
-            navigation.navigate('Flavor', { product: Type.data[0] })
+            navigation.navigate('Flavor', { product: Type.data[0][0] })
           }
         />
       </View>
@@ -72,9 +72,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(Menu);
 
 const styles = StyleSheet.create({
-  container: {
-    // paddingTop: 60,
-  },
+  container: {},
   content: {
     paddingHorizontal: 15,
   },
