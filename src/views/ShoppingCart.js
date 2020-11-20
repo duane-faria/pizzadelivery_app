@@ -66,8 +66,8 @@ const ShoppingCart = ({ Cart, dispatch, navigation }) => (
     <View style={styles.content}>
       {Cart.orders.length > 0 ? (
         Cart.orders.map((o) => (
-          <View style={{ marginBottom: 10 }} key={o._id}>
-            <ListItem>
+          <View style={{ marginBottom: 10 }} key={Math.random()}>
+            <ListItem key={Math.random()}>
               <AppImage url={images[o.flavorName.toLowerCase()]} />
               <AppText
                 remove={() => dispatch(cartActions.removeItem(o.id))}

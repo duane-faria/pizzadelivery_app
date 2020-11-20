@@ -27,5 +27,6 @@ module.exports = {
     'implicit-arrow-linebreak': 0,
     'react/require-default-props': 0,
     'object-curly-newline': 0,
+    'react/prop-types': 0,
   },
 };
