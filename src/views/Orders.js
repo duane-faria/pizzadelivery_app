@@ -13,7 +13,7 @@ const AppText = ({ order }) => (
     <Text style={{ color: colors.secondary, fontSize: 16 }}>
       Pedido #{order.orderNumber}
     </Text>
-    <Text style={{ color: colors.gray, marginTop: 5 }}>Ontem às 17h</Text>
+    <Text style={{ color: colors.gray, marginTop: 5 }}>{order.time}</Text>
     <Text
       style={{
         color: colors.secondary,
@@ -26,9 +26,9 @@ const AppText = ({ order }) => (
   </View>
 );
 
-const Orders = ({ Auth, Orders, dispatch, navigation }) => {
+const Orders = ({ Orders, dispatch, navigation }) => {
   React.useEffect(() => {
-    dispatch(cartActions.getOrdersRequest(Auth.id));
+    dispatch(cartActions.getOrdersRequest());
   }, []);
 
   return (
@@ -57,7 +57,6 @@ const Orders = ({ Auth, Orders, dispatch, navigation }) => {
 };
 
 const mapStateToProps = (state) => ({
-  Auth: state.Auth,
   Orders: state.Cart.ordersAlreadySent,
 });
 

@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 
 import cartActions from '../ducks/Cart';
 import client from '../../api/client';
@@ -30,8 +30,9 @@ export function* sendOrder({ order }) {
   }
 }
 
-export function* getOrders({ id }) {
+export function* getOrders() {
   try {
+    const { id } = yield select((state) => state.Auth);
     const response = yield call(client.get, `order/${id}`);
     yield put(cartActions.getOrdersSuccess(response.data));
   } catch (error) {

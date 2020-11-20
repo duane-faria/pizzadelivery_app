@@ -5,7 +5,7 @@ const { Types, Creators } = createActions({
   removeItem: ['id'],
   clearCart: null,
   sendOrder: ['order'],
-  getOrdersRequest: ['id'],
+  getOrdersRequest: null,
   getOrdersSuccess: ['orders'],
 });
 
